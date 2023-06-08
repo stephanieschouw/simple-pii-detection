@@ -10,6 +10,7 @@ from tkinter import filedialog
 
 final_json = defaultdict(lambda: defaultdict(dict))
 pii_list = []
+filename = '1-MB-Test.txt'
 
 # https://microsoft.github.io/presidio/supported_entities/
 exclude_list1 = ['UK_NHS','ES_NIF','IT_FISCAL_CODE','IT_DRIVER_LICENSE','IT_VAT_CODE','IT_PASSPORT','IT_IDENTITY_CARD','SG_NRIC_FIN','AU_ABN','AU_ACN','AU_TFN','AU_MEDICARE']
@@ -22,7 +23,7 @@ analyzer = AnalyzerEngine(registry=registry)
 anonymizer = AnonymizerEngine()
 
 # Run with input text
-f = open('1-MB-Test.txt','r')
+f = open(filename,'r')
 content = f.read()
 text = content.replace("\r"," ").replace("\n"," ").replace("\r\n", " ").replace("\t"," ").replace("\s"," ").replace("\f", " ").replace('"', '').replace("  "," ").strip()
 f.close()

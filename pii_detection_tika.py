@@ -34,6 +34,11 @@ json_folder = os.path.join(directory, 'output')
 isExist = os.path.exists(json_folder)
 if not isExist:
     os.mkdir(json_folder)
+else:
+    for file in os.listdir(json_folder):
+        f = os.path.join(json_folder, file)
+        if os.path.isfile(f):
+            os.remove(f)
 
 file_counter = 1
 for filename in os.listdir(directory):

@@ -14,9 +14,9 @@ import requests
 exclude_list1 = ['UK_NHS','ES_NIF','IT_FISCAL_CODE','IT_DRIVER_LICENSE','IT_VAT_CODE','IT_PASSPORT','IT_IDENTITY_CARD','SG_NRIC_FIN','AU_ABN','AU_ACN','AU_TFN','AU_MEDICARE']
 exclude_list2 = ['EMAIL_ADDRESS','LOCATION','NRP','URL','DATE_TIME','PERSON','PHONE_NUMBER']
 
-# Tika endpoints
-url_extraction = 'http://localhost:9998/tika'
-url_metadata = 'http://localhost:9998/rmeta'
+# Tika endpoints, only leveraging text extraction but metadata extraction can be added to the JSON output
+url_text_extraction = 'http://localhost:9998/tika'
+url_metadata_extraction = 'http://localhost:9998/rmeta'
 
 # Set up analyzer with our updated recognizer registry
 registry = RecognizerRegistry()
@@ -52,9 +52,8 @@ for filename in os.listdir(directory):
         pii_list = []
 
         # Extract text from files
-        text_response = requests.request('PUT', url_extraction, data=open(f, 'rb'))
-        clean_text = text_response.text.encode('utf-8', 'ignore')
-        text = str(clean_text).replace(r"\r"," ").replace(r"\n"," ").replace(r"\r\n", " ").replace(r"\t"," ").replace(r"\s"," ").replace(r"\f", " ").replace('"', '').replace("  "," ").strip()
+        text_response = requests.request('PUT', url_text_extraction, data=open(f, 'rb'))
+        text = str(text_response.text).replace(r"\r"," ").replace(r"\n"," ").replace(r"\r\n", " ").replace(r"\t"," ").replace(r"\s"," ").replace(r"\f", " ").replace('"', '').replace("  "," ").strip()
 
         # To add specific exemptions, see here https://microsoft.github.io/presidio/tutorial/13_allow_list/
         results = analyzer.analyze(text=text, language="en")

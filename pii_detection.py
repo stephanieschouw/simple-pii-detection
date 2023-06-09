@@ -25,7 +25,8 @@ anonymizer = AnonymizerEngine()
 # Run with input text
 f = open(filename,'r')
 content = f.read()
-text = content.replace("\r"," ").replace("\n"," ").replace("\r\n", " ").replace("\t"," ").replace("\s"," ").replace("\f", " ").replace('"', '').replace("  "," ").strip()
+clean_text = content.text.encode('utf-8', 'ignore')
+text = str(clean_text).replace(r"\r"," ").replace(r"\n"," ").replace(r"\r\n", " ").replace(r"\t"," ").replace(r"\s"," ").replace(r"\f", " ").replace('"', '').replace("  "," ").strip()
 f.close()
 
 # Runs block of text and prints first result with analysis

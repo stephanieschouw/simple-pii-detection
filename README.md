@@ -19,6 +19,6 @@ A more complex version of *pii_detection.py*  that leverages Apache Tika, which 
 
 You will need to download the [tika server jar file](https://tika.apache.org/download.html), open command line, cd into where jar file is stored, and then run
 ```
-java -jar tika-app-2.8.0.jar
+java -jar tika-server-standard-2.8.0.jar
 ```
 Create a folder and store all of the documents that you want to be analyzed and then run the script. Console will display the current file its analyzing. Once complete a new subfolder called **output** will be created in the same folder as the analyzed documents.
